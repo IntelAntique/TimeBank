@@ -6,7 +6,7 @@ import Tabs from './navigation/Tabs';
 import TimeStack from './navigation/TimeStack';
 
 export default function MainPage(props) {
-  const [bank, setBank] = useState({});
+  const [bank, setBank] = useState();
 
   return (
     <>
