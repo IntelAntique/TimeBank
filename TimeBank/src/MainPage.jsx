@@ -5,7 +5,7 @@ import BankContext from './BankContext';
 import Tabs from './navigation/Tabs';
 
 export default function MainPage(props) {
-  const [bank, setBank] = useState({});
+  const [bank, setBank] = useState();
 
   return (
     <>

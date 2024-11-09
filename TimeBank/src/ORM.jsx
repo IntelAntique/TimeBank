@@ -1,8 +1,6 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { Avatar, Card, Title, Paragraph, FAB } from 'react-native-paper';
-import { useNavigation } from "@react-navigation/native";
+import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBjlA_pGLOeocLz0I9vSsX8vNdOqPFTyIM",
@@ -14,44 +12,84 @@ const firebaseConfig = {
     measurementId: "G-FQKP8VC22C"
 };
 
-// function TODOs
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-function addDonation() {
-    const navigation = useNavigation();
-    navigation.navigate("AddDonation");
+export async function addDonation(donation) {
+    try {
+        const docRef = await addDoc(collection(db, "donations"), donation);
+        console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
 }
 
-function readDonations() {
-    const navigation = useNavigation();
-    navigation.navigate("Donation");
+export async function readDonations() {
+    const querySnapshot = await getDocs(collection(db, "donations"));
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 }
 
-function updateDonation() {
-    const navigation = useNavigation();
-    navigation.navigate("UpdateDonation");
+export async function updateDonation(id, updatedDonation) {
+    try {
+        const donationRef = doc(db, "donations", id);
+        await updateDoc(donationRef, updatedDonation);
+        console.log("Document updated with ID: ", id);
+    } catch (e) {
+        console.error("Error updating document: ", e);
+    }
 }
 
-function removeDonation() {
-    const navigation = useNavigation();
-    navigation.navigate("RemoveDonation");
+export async function removeDonation(id) {
+    try {
+        const donationRef = doc(db, "donations", id);
+        await deleteDoc(donationRef);
+        console.log("Document deleted with ID: ", id);
+    } catch (e) {
+        console.error("Error deleting document: ", e);
+    }
 }
 
-function addService() {
-    const navigation = useNavigation();
-    navigation.navigate("AddDonation");
+export async function addService(service) {
+    try {
+        const docRef = await addDoc(collection(db, "services"), service);
+        console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
 }
 
-function readServices() {
-    const navigation = useNavigation();
-    navigation.navigate("Donation");
+export async function readServices() {
+    const [serviceItems, setServiceItems] = useState([]);
+
+    useEffect(() => {
+        async function fetchServices() {
+            const querySnapshot = await getDocs(collection(db, "services"));
+            const services = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setServiceItems(services);
+        }
+        fetchServices();
+    }, []);
+
+    return serviceItems;
 }
 
-function updateService() {
-    const navigation = useNavigation();
-    navigation.navigate("UpdateDonation");
+export async function updateService(id, updatedService) {
+    try {
+        const serviceRef = doc(db, "services", id);
+        await updateDoc(serviceRef, updatedService);
+        console.log("Document updated with ID: ", id);
+    } catch (e) {
+        console.error("Error updating document: ", e);
+    }
 }
 
-function removeService() {
-    const navigation = useNavigation();
-    navigation.navigate("RemoveDonation");
+export async function removeService(id) {
+    try {
+        const serviceRef = doc(db, "services", id);
+        await deleteDoc(serviceRef);
+        console.log("Document deleted with ID: ", id);
+    } catch (e) {
+        console.error("Error deleting document: ", e);
+    }
+
 }

@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { Avatar, Card, Title, Paragraph, FAB } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
+import { readDonations } from "../ORM";
 // import { useNavigation } from "@react-navigation/native";
 
 const firebaseConfig = {
@@ -20,16 +21,8 @@ function Donations(props) {
     const [donationItems, setDonationItems] = useState([]);
     const navigation = useNavigation();
 
-    async function fetchDonations() {
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const querySnapshot = await getDocs(collection(db, "donations"));
-        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    }
-
     useEffect(() => {
-        fetchDonations().then(data => setDonationItems(data));
-        console.log(donationItems)
+        readDonations().then(data => setDonationItems(data));
     }, []);
 
     const moreInfo = (donation) => {
