@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import BankContext from './BankContext';
 import Tabs from './navigation/Tabs';
+import TimeStack from './navigation/TimeStack';
 
 export default function MainPage(props) {
   const [prefs, setPrefs] = useState({});

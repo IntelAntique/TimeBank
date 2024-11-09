@@ -1,7 +1,7 @@
 import { Text, View, Pressable, Image, Dimensions, StyleSheet, Animated, Linking, ScrollView } from "react-native";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, doc, getDocs, query, where } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
 // import { useNavigation } from "@react-navigation/native";
 
@@ -15,72 +15,59 @@ const firebaseConfig = {
     measurementId: "G-FQKP8VC22C"
   };
 
-function Services(props) {
+function Service(props) {
 
-    const [services, setServices] = useState([]);
+    props = props.route.params;
 
-    // const navigation = useNavigation();
+    console.log("props", props);
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const servicesCollection = collection(db, "services");
 
-    async function fetchServices() {
-        try {
-          const querySnapshot = await getDocs(servicesCollection);
-          const servs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          console.log("Services:", servs);
-          return servs;
-        } catch (error) {
-          console.error("Error fetching servics:", error);
-        }
-    }
+    // console.log("requester", props.requester);
 
-    useEffect(() => {
-        fetchServices().then(data => setServices(data));
-    }, [])
+    //     // Function to fetch user by username
+    //     async function getUserByUsername(username) {
+    //         try {
+    //             // Reference to the users collection
+    //             const usersCollection = collection(db, "users");
+                
+    //             // Create a query to find a user with the specific username
+    //             const userQuery = query(usersCollection, where("username", "==", username));
+                
+    //             // Fetch the matching documents
+    //             const querySnapshot = await getDocs(userQuery);
+                
+    //             if (querySnapshot.empty) {
+    //                 setError("User not found!");
+    //             } else {
+    //                 // If a matching user is found, set the user state
+    //                 const userDoc = querySnapshot.docs[0]; // Get the first matching document
+    //                 setRequester(userDoc.data());
+    //             }
+    //         } catch (err) {
+    //             console.log("Error fetching user data: ", err.message);
+    //         }
+    //     }
 
-    function goToService(service){
-        // navigation.push("Service", {
-        //     ...service
-        // })
-        console.log("TODO: go to service ", service);
-    }
+    // useEffect(() => {
+    //     getUserByUsername(props.requester);
+    // }, []);
 
-    return (<View style={{flex: 1, marginTop: 50, width: '100%'}}>
-        <ScrollView style={{flex: 1}}>
-            {
-                services.map((service) => {
-                    return(<Pressable onPress={() => goToService(service)}>
-                        <Card key={service.id}>
-                            <Card.Content>
-                                <Title>{service.title}</Title>
-                                <Paragraph>{service.location}</Paragraph>
-                                <Paragraph>Points: {service.points}</Paragraph>
-                            </Card.Content>
-                        </Card>
-                    </Pressable>)
-                })
-            }
-        </ScrollView>
-        <FAB
-          style={styles.fab}
-          small
-          icon="plus"
-          onPress={() => console.log('Pressed')}
-        />
+    return (<View style={styles.page}>
+        <Text style={{fontSize: 30}}>{props.title}</Text>
+        <Text>{props.location}</Text>
+        <Text>Requested by {props.requester}</Text>
+        <Text>Points: {props.points}</Text>
+        <Text>{props.description}</Text>
     </View>);
 }
 
 const styles = StyleSheet.create({
-    fab: {
-        position: "absolute",
-        margin: 30,
-        right: 0,
-        bottom: 0,
-        borderRadius: 100,
-        padding: 8
+    page: {
+        backgroundColor: 'white',
+        flex: 1
       }
 });
 
-export default Services;
+export default Service;
