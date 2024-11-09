@@ -1,7 +1,5 @@
 import { Text, View, Pressable, Image, Dimensions, StyleSheet, Animated, Linking, ScrollView , Button } from "react-native";
 import { useEffect, useState, useRef, useCallback } from "react";
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { Avatar, Card, Title, Paragraph, FAB } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 import { readDonations } from "../ORM";
