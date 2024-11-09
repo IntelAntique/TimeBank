@@ -5,11 +5,11 @@ import BankContext from './BankContext';
 import Tabs from './navigation/Tabs';
 
 export default function MainPage(props) {
-  const [prefs, setPrefs] = useState({});
+  const [bank, setBank] = useState({});
 
   return (
     <>
-      <BankContext.Provider value={{prefs, setPrefs}}>
+      <BankContext.Provider value={{bank, setBank}}>
         <NavigationContainer>
           <Tabs />
         </NavigationContainer>

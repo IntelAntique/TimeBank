@@ -13,7 +13,7 @@ const firebaseConfig = {
     messagingSenderId: "722549859113",
     appId: "1:722549859113:web:83b666be8dfbd881680d38",
     measurementId: "G-FQKP8VC22C"
-  };
+};
 
 function Services(props) {
 
@@ -27,12 +27,12 @@ function Services(props) {
 
     async function fetchServices() {
         try {
-          const querySnapshot = await getDocs(servicesCollection);
-          const servs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          console.log("Services:", servs);
-          return servs;
+            const querySnapshot = await getDocs(servicesCollection);
+            const servs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            console.log("Services:", servs);
+            return servs;
         } catch (error) {
-          console.error("Error fetching servics:", error);
+            console.error("Error fetching servics:", error);
         }
     }
 

@@ -1,8 +1,8 @@
 import { Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import Donations from "./../screens/Donations";
 import Services from "./../screens/Services";
+import DonateStack from "./DonateStack";
 
 
 function Tabs(props) {
@@ -10,7 +10,7 @@ function Tabs(props) {
     const Tabs = createBottomTabNavigator();
 
     return <>
-        <Tabs.Navigator screenOptions={{headerShown: true}} initialRouteName="MainPage">
+        <Tabs.Navigator screenOptions={{headerShown: false}} initialRouteName="MainPage">
             
             <Tabs.Screen name="MainPage" component={Services} options={{
                 title: "Services",
@@ -19,8 +19,7 @@ function Tabs(props) {
                     <MaterialCommunityIcons name="newspaper-variant-outline" color={color} size={size} />)
                 }} />
 
-            <Tabs.Screen name="Donations" component={Donations} options={{
-                headerShown: true,
+            <Tabs.Screen name="Donate" component={DonateStack} options={{
                 tabBarLabel: 'Donations',
                 tabBarIcon: ({ color, size }) => (
                     <MaterialCommunityIcons name="account-settings-outline" color={color} size={size} />)
