@@ -29,7 +29,8 @@ function Services(props) {
         try {
           const querySnapshot = await getDocs(servicesCollection);
           const servs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          console.log("Services:", servs);
+        //   querySnapshot.docs.forEach(doc => ( console.log( doc.data()) ));
+        //   console.log("Services:", servs);
           return servs;
         } catch (error) {
           console.error("Error fetching servics:", error);

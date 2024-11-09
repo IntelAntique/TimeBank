@@ -1,9 +1,9 @@
 import { Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import Donations from "./../screens/Donations";
 import Services from "./../screens/Services";
 import TimeStack from "./TimeStack";
+import DonateStack from "./DonateStack";
 
 
 function Tabs(props) {
@@ -12,7 +12,7 @@ function Tabs(props) {
 
     return <>
         <Tabs.Navigator screenOptions={{
-                headerShown: true,
+                headerShown: false,
                 backgroundColor: 'blue',
                 tabBarActiveTintColor: '#4361ee'
                 }} initialRouteName="MainPage">
