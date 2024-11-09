@@ -25,8 +25,8 @@ function Tabs(props) {
                     <MaterialCommunityIcons name="tools" color={color} size={size} />)
                 }} />
 
-            <Tabs.Screen name="Donations" component={Donations} options={{
-                headerShown: true,
+            <Tabs.Screen name="DonateStack" component={DonateStack} options={{
+                headerShown: false,
                 tabBarLabel: () => null,
                 headerStyle: {
                     backgroundColor: '#4361ee', // Green background color of the header
