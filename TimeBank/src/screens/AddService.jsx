@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDocs, query, where } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
 // import { useNavigation } from "@react-navigation/native";
+import { addService } from "../ORM";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBjlA_pGLOeocLz0I9vSsX8vNdOqPFTyIM",
@@ -25,6 +26,17 @@ function AddService(props) {
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+
+    function insertService(){
+        let service = {
+            description: serviceDescription,
+            location: serviceLocation,
+            points: serviceHours,
+            requester: "Bob", // placeholder for now
+            title: serviceName
+        }
+        addService(service).then(console.log("service added"));
+    }
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -65,7 +77,7 @@ function AddService(props) {
             />
 
             {/* TODO: Once log in logic is implemented, check that the user has enough points  */}
-                <TouchableOpacity style={styles.button} onPress={() => console.log('Button pressed')}>
+                <TouchableOpacity style={styles.button} onPress={insertService}>
                     <Text style={styles.buttonText}>Add Service</Text>
                 </TouchableOpacity>
             </Card.Content>
