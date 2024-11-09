@@ -3,7 +3,6 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
-import { FloatingAction } from "react-native-floating-action";
 // import { useNavigation } from "@react-navigation/native";
 
 const firebaseConfig = {
@@ -52,8 +51,8 @@ function Services(props) {
         <ScrollView style={{flex: 1}}>
             {
                 services.map((service) => {
-                    return(<Pressable onPress={() => goToService(service)}>
-                        <Card key={service.id}>
+                    return(<Pressable key={service.id} onPress={() => goToService(service)}>
+                        <Card>
                             <Card.Content>
                                 <Title>{service.title}</Title>
                                 <Paragraph>{service.location}</Paragraph>
