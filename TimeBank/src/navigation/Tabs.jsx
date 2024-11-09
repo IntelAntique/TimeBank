@@ -2,6 +2,7 @@ import { Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Services from "./../screens/Services";
+import TimeStack from "./TimeStack";
 import DonateStack from "./DonateStack";
 
 
@@ -10,19 +11,32 @@ function Tabs(props) {
     const Tabs = createBottomTabNavigator();
 
     return <>
-        <Tabs.Navigator screenOptions={{headerShown: false}} initialRouteName="MainPage">
+        <Tabs.Navigator screenOptions={{
+                headerShown: false,
+                backgroundColor: 'blue',
+                tabBarActiveTintColor: '#4361ee'
+                }} initialRouteName="MainPage">
             
-            <Tabs.Screen name="MainPage" component={Services} options={{
+            <Tabs.Screen name="MainPage" component={TimeStack} options={{
                 title: "Services",
-                tabBarLabel: 'Services',
+                tabBarLabel: () => null,
+                headerShown: false,
                 tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="newspaper-variant-outline" color={color} size={size} />)
+                    <MaterialCommunityIcons name="tools" color={color} size={size} />)
                 }} />
 
-            <Tabs.Screen name="Donate" component={DonateStack} options={{
-                tabBarLabel: 'Donations',
+            <Tabs.Screen name="DonateStack" component={DonateStack} options={{
+                headerShown: false,
+                tabBarLabel: () => null,
+                headerStyle: {
+                    backgroundColor: '#4361ee', // Green background color of the header
+                },
+                headerTintColor: 'white', // White color for the title and icons in the header
+                headerTitleStyle: {
+                fontWeight: 'bold', // Bold header title
+                },
                 tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="account-settings-outline" color={color} size={size} />)
+                    <MaterialCommunityIcons name="gift" color={color} size={size} />)
             }}/>
 
         </Tabs.Navigator>

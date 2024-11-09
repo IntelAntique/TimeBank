@@ -31,13 +31,13 @@ function Donations(props) {
         })
     }
 
-    const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
+    const LeftContent = props => <Avatar.Icon {...props} icon="gift" backgroundColor="#4361ee"/>
 
-    return (<View style={{flex: 1}}>
+    return (<View style={{flex: 1, backgroundColor: 'white'}}>
         <ScrollView>
             {donationItems.map((donation) => (
                 <Pressable key={donation.id} onPress={() => moreInfo(donation)}>
-                    <Card>
+                    <Card style={{backgroundColor: 'white', margin: 10}}>
                         <Card.Title title={donation.donator} subtitle={donation.description} left={LeftContent} />
                         {/* <Card.Content>
                             <Title>{donation.title}</Title>
@@ -58,6 +58,7 @@ function Donations(props) {
           style={styles.fab}
           small
           icon="plus"
+          color="white"
           onPress={() => console.log('Pressed')}
         />
     </View>);
@@ -70,7 +71,8 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
         borderRadius: 100,
-        padding: 8
+        padding: 8,
+        backgroundColor: '#4361ee',
       }
 });
 

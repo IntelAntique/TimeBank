@@ -1,16 +1,16 @@
-import React from "react";
-import { createStackNavigator } from '@react-navigation/stack';
-import Donations from "../screens/Donations";
-import Donate from "../screens/Donate";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Service from "../screens/Service";
+import Services from "../screens/Services";
 
-const Stack = createStackNavigator();
+const TimeBankStack = createNativeStackNavigator();
 
-function DonateStack(props) {
+function TimeStack(props) {
+    
     return (
-        <Stack.Navigator>
-            <Stack.Screen name="Donations" component={Donations} options={{
-            headerShown: true,
-            title: 'Donations', // Title of the screen
+    <TimeBankStack.Navigator>
+        <TimeBankStack.Screen name="Services" component={Services}
+        options={{
+            title: 'Services', // Title of the screen
             headerStyle: {
               backgroundColor: '#4361ee', // Green background color of the header
             },
@@ -19,9 +19,9 @@ function DonateStack(props) {
               fontWeight: 'bold', // Bold header title
             },
           }}/>
-            <Stack.Screen name="Donation" component={Donate} options={{
-            headerShown: true,
-            title: 'Donation', // Title of the screen
+        <TimeBankStack.Screen name="Service" component={Service}
+        options={{
+            title: 'Services', // Title of the screen
             headerStyle: {
               backgroundColor: '#4361ee', // Green background color of the header
             },
@@ -30,8 +30,7 @@ function DonateStack(props) {
               fontWeight: 'bold', // Bold header title
             },
           }}/>
-        </Stack.Navigator>
-    );
+    </TimeBankStack.Navigator>);
 }
 
-export default DonateStack;
+export default TimeStack;

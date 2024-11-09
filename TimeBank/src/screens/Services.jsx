@@ -3,7 +3,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBjlA_pGLOeocLz0I9vSsX8vNdOqPFTyIM",
@@ -19,7 +19,7 @@ function Services(props) {
 
     const [services, setServices] = useState([]);
 
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
@@ -42,18 +42,17 @@ function Services(props) {
     }, [])
 
     function goToService(service){
-        // navigation.push("Service", {
-        //     ...service
-        // })
-        console.log("TODO: go to service ", service);
+        navigation.push("Service", {
+            ...service
+        })
     }
 
-    return (<View style={{flex: 1, marginTop: 50, width: '100%'}}>
+    return (<View style={{flex: 1, width: '100%', backgroundColor: 'white'}}>
         <ScrollView style={{flex: 1}}>
             {
                 services.map((service) => {
                     return(<Pressable key={service.id} onPress={() => goToService(service)}>
-                        <Card>
+                        <Card style={{backgroundColor: 'white', margin: 10}}>
                             <Card.Content>
                                 <Title>{service.title}</Title>
                                 <Paragraph>{service.location}</Paragraph>
@@ -68,6 +67,7 @@ function Services(props) {
           style={styles.fab}
           small
           icon="plus"
+          color="white"
           onPress={() => console.log('Pressed')}
         />
     </View>);
@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
         borderRadius: 100,
-        padding: 8
+        padding: 8,
+        backgroundColor: '#4361ee',
       }
 });
 
