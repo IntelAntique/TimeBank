@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBjlA_pGLOeocLz0I9vSsX8vNdOqPFTyIM",

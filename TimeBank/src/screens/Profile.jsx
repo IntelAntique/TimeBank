@@ -30,6 +30,9 @@ function Profile(props) {
                 <Pressable style={styles.editButton}>
                 <Text style={styles.editButtonText}>Edit Profile</Text>
                 </Pressable>
+
+                <Text>Username</Text>
+                <Text>@username</Text>
             </View>
 
             <View style={styles.menuSection}>
@@ -39,9 +42,9 @@ function Profile(props) {
                 <MenuItem icon="lock-closed-outline" title="Change Password" />
                 <MenuItem icon="help-circle-outline" title="Help & Support" />
                 <MenuItem 
-                icon="log-out-outline" 
-                title="Log out" 
-                hasChevron={false}
+                    icon="log-out-outline" 
+                    title="Log out" 
+                    hasChevron={false}
                 />
             </View>
         </View>
