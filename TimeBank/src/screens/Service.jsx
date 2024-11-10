@@ -1,7 +1,7 @@
+import { Platform, Text, View, Pressable, Image, Dimensions, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { Text, View, Platform, Image, Alert, StyleSheet, TouchableOpacity, Linking, ScrollView, Dimensions } from "react-native";
 import { useContext, useState, useRef, useCallback, useEffect } from "react";
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, doc, getDocs, query, where } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
 import { assignServiceToUser } from "../ORM";
 import UserContext from "../contexts/UserContext";
@@ -41,7 +41,20 @@ function Service(props) {
 
     useEffect(() => {
         if (mapRef.current && region) {
-            mapRef.current.animateToRegion(region, 1000);
+            if (Platform.OS === 'ios') {
+                mapRef.current.animateCamera({
+                    center: {
+                        latitude: region.latitude,
+                        longitude: region.longitude
+                    },
+                    zoom: 15, // Adjust this value as needed
+                    pitch: 0,
+                    heading: 0,
+                    altitude: 0
+                }, { duration: 500 });
+            } else {
+                mapRef.current.animateToRegion(region, 1000);
+            }
         }
     }, [region]);
 
