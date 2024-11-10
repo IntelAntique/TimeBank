@@ -23,7 +23,7 @@ function Donations(props) {
 
     return (<View style={{flex: 1, backgroundColor: 'white'}}>
         <ScrollView>
-            {donationItems.filter((donation) => donation.assignedTo == undefined).map((donation) => (
+            {donationItems.filter((donation) => donation.assignedTo == undefined).filter((donation) => donation.completed == false).map((donation) => (
                 <Pressable key={donation.id} onPress={() => moreInfo(donation)}>
                     <Card style={{backgroundColor: 'white', margin: 10}}>
                         <Card.Title title={donation.donator} subtitle={donation.description} left={LeftContent} />

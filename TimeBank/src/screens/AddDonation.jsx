@@ -3,7 +3,7 @@ import { useEffect, useState, useRef, useContext } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDocs, query, where } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { addDonation } from "../ORM";
 import UserContext from "../contexts/UserContext";
 
@@ -28,6 +28,8 @@ function AddDonation(props) {
     const db = getFirestore(app);
     const {usernameData, setUsernameData} = useContext(UserContext);
 
+    const navigation = useNavigation();
+
     function insertDonation(){
         let donation = {
             description: donationDescription,
@@ -38,7 +40,10 @@ function AddDonation(props) {
             title: donationTitle,
             completed: false
         }
-        addDonation(donation).then(console.log("donation added"));
+        addDonation(donation).then(navigation.reset({
+            index: 0, // The first screen after reset
+            routes: [{ name: "Donations" }], // Navigate to the "Services" screen
+          }));
     }
 
     return (
