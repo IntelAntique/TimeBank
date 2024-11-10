@@ -118,6 +118,42 @@ export async function addUser(user) {
     }
 }
 
+export async function updateUser(id, updatedUser) {
+    try {
+        const userRef = doc(db, "users", id);
+
+        await updateDoc(userRef, updatedUser);
+        console.log("Document updated with ID: ", id);
+    } catch (e) {
+        console.error("Error updating document: ", e);
+    }
+}
+
+export async function getUserByUsername(username) {
+    const usersCollection = collection(db, "users");
+    
+    // Create a query to find services where assignedTo equals the given username
+    const usersQuery = query(usersCollection, where("username", "==", username));
+    
+    try {
+        const querySnapshot = await getDocs(usersQuery);
+        
+        if (querySnapshot.empty) {
+            console.log("No one with this username.");
+            return [];
+        } else {
+            const users = [];
+            querySnapshot.forEach(doc => {
+                users.push({ id: doc.id, ...doc.data() });
+            });
+            return users[0];
+        }
+    } catch (error) {
+        console.error("Error getting user:", error);
+        return [];
+    }
+}
+
 export async function checkCredentials(username, password) {
     const usersCollection = collection(db, "users");
 

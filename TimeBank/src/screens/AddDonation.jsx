@@ -35,7 +35,8 @@ function AddDonation(props) {
             points: 1,
             donator: usernameData,
             photo: "not yet implemented",
-            title: donationTitle
+            title: donationTitle,
+            completed: false
         }
         addDonation(donation).then(console.log("donation added"));
     }

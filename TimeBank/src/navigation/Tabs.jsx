@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Services from "./../screens/Services";
 import TimeStack from "./TimeStack";
 import DonateStack from "./DonateStack";
-import SignedUp from "../screens/SignedUp";
+import SignedUpStack from "./SignedUpStack";
 
 function Tabs(props) {
 
@@ -39,8 +39,8 @@ function Tabs(props) {
                     <MaterialCommunityIcons name="gift" color={color} size={size} />)
             }}/>
 
-        <Tabs.Screen name="Signed Up" component={SignedUp} options={{
-                headerShown: true,
+        <Tabs.Screen name="SignedUpStack" component={SignedUpStack} options={{
+                headerShown: false,
                 tabBarLabel: () => null,
                 headerStyle: {
                     backgroundColor: '#4361ee', // Green background color of the header

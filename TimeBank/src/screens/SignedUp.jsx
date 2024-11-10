@@ -45,6 +45,8 @@ function SignedUp(props) {
   const { usernameData, setUsernameData } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
+  const navigation = useNavigation();
+
   const onRefresh = () => {
     setLoading(true);
     getServicesAssignedToUser(usernameData).then((data) => setSignedUp(data));
@@ -75,7 +77,11 @@ function SignedUp(props) {
     updateService(service.id, { ...serviceWithoutAssignedTo }).then(onRefresh());
   }
 
-  function completedService(service) {}
+  function completedService(service) {
+    navigation.push("Completed", {
+        ...service
+    });
+  }
 
   return (
     <View style={{ flex: 1, width: "100%", backgroundColor: "white" }}>
@@ -155,7 +161,7 @@ function SignedUp(props) {
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity
                     style={styles.button}
-                    onPress={() => completedService(signed.id)}
+                    onPress={() => completedService(signed)}
                   >
                     <Text style={styles.buttonText}>Completed</Text>
                   </TouchableOpacity>
@@ -234,7 +240,7 @@ function SignedUp(props) {
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity
                     style={styles.button}
-                    onPress={() => completedPickup(pickup.id)}
+                    onPress={() => completedPickup(pickup)}
                   >
                     <Text style={styles.buttonText}>Completed</Text>
                   </TouchableOpacity>
