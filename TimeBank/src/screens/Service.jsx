@@ -1,6 +1,7 @@
 import { Text, View, Pressable, Image, Dimensions, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
+// import { useNavigation } from "@react-navigation/native";
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 
