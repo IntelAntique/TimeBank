@@ -7,6 +7,7 @@ import ProfileIcon from "../screens/ProfileIcon";
 import Profile from "../screens/Profile";
 import { StyleSheet } from "react-native";
 import Donation from "../screens/Donation";
+import { Ionicons } from 'react-native-vector-icons'; // Import the icon library
 
 const Stack = createStackNavigator();
 
@@ -14,7 +15,18 @@ function DonateStack(props) {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Donations" component={Donations} options={
-              {...styles.header, title: "Donations", headerLeft: () => null}
+              {...styles.header, title: "Donations", headerLeft: () => null,  headerRight: () => (
+                <Ionicons 
+                    name="person-circle-outline" // This is the profile icon
+                    size={30} // Set the size of the icon
+                    color="white" // Icon color
+                    style={{ marginRight: 15 }} // Add margin for spacing
+                    onPress={() => {
+                        // Handle profile icon press (e.g., navigate to profile screen)
+                        console.log('Profile Icon Pressed');
+                    }}
+                />
+            )}
             }/>
             <Stack.Screen name="Donation" component={Donation} options={
               {...styles.header, title: "Donation"}
