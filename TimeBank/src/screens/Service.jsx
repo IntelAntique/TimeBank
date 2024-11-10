@@ -77,12 +77,19 @@ function Service(props) {
 
     return (<View style={styles.page}>
         <Card style={{backgroundColor: 'white', margin: 10, alignItems: 'center'}}>
-            <Card.Content style={{alignItems: 'center'}}>
-                <Title>{props.title}</Title>
-                <Paragraph>Requested by {props.requester}</Paragraph>
-                <Paragraph>{props.location}</Paragraph>
-                <Paragraph>Points: {props.points}</Paragraph>
-                <Paragraph>{props.description}</Paragraph>
+            <Card.Content>
+                <View style={{flexDirection: "row"}} >
+                    <View>
+                        <Title>{props.title}</Title>
+                        <Paragraph>description: {props.description}</Paragraph>
+                        <Paragraph>{props.location}</Paragraph>
+                    </View>
+                    <View style={{alignItems: 'flex-end', flex: 1}}>
+                        <Paragraph>Points: {props.points}</Paragraph>
+                        <Paragraph>Requester: {props.requester}</Paragraph>
+                    </View>
+                </View>
+                
                 <TouchableOpacity style={styles.button} onPress={signUp}>
                     <Text style={styles.buttonText}>Sign up</Text>
                 </TouchableOpacity>

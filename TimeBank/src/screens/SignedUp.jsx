@@ -85,30 +85,16 @@ function SignedUp(props) {
 
   return (
     <View style={{ flex: 1, width: "100%", backgroundColor: "white" }}>
-      <ScrollView
-        style={{ flex: 1 }}
-        refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={onRefresh} />
-        }
-      >
+      <ScrollView style={{ flex: 1 }} refreshControl={ <RefreshControl refreshing={loading} onRefresh={onRefresh} /> }>
         <Text style={styles.category}>
           Service requests {usernameData} made:
         </Text>
         {requests.length > 0 ? (
           requests.map((request) => {
             return (
-              <Card
-                style={{ backgroundColor: "white", margin: 10 }}
-                key={request.id}
-              >
+              <Card style={{ backgroundColor: "white", margin: 10 }} key={request.id} >
                 <Card.Content>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
+                  <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                     <View style={{ flex: 1 }}>
                       <Title>{request.title}</Title>
                       <Paragraph>{request.location}</Paragraph>

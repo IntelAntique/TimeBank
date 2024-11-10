@@ -1,4 +1,4 @@
-import { Text, View, TextInput, Pressable, TouchableWithoutFeedback, StyleSheet, TouchableOpacity, Keyboard, Alert } from "react-native";
+import { Text, View, TextInput, Pressable, TouchableWithoutFeedback, StyleSheet, TouchableOpacity, Keyboard, Alert, Animated } from "react-native";
 import { useEffect, useState, useContext, useCallback } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDocs, query, where } from "firebase/firestore";
@@ -44,21 +44,20 @@ function LoginScreen(props) {
     return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <View style={styles.page}>
-         <Text style={styles.label}>Username:</Text>
-                <TextInput
-                    style={[styles.input, {marginBottom: 20}]}
-                    placeholder="username"
-                    value={username}
-                    onChangeText={setUsername}
-                />
-                <Text style={styles.label}>Password:</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry={true}
-            />
+        <Text style={styles.label}> Time Bank </Text>
+        <TextInput
+            style={[styles.input, {marginBottom: 20}]}
+            placeholder="username"
+            value={username}
+            onChangeText={setUsername}
+        />
+        <TextInput
+            style={styles.input}
+            placeholder="password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={true}
+        />
         <TouchableOpacity style={styles.button} onPress={login}>
                     <Text style={styles.buttonText}>Log In</Text>
         </TouchableOpacity>
@@ -87,8 +86,13 @@ const styles = StyleSheet.create({
       marginBottom: 15,
     },
     label: {
-      fontSize: 16,
-      marginBottom: 8,
+        fontSize: 40, // Increase the font size
+        marginBottom: 8,
+        color: '#4361ee', // Neon color
+        // textShadowColor: '#000', // Neon glow
+        // textShadowOffset: { width: -0.5, height: 0.5 },
+        // textShadowRadius: 5,
+        fontWeight: 'bold',
     },
     input: {
       height: 40,
