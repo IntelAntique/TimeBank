@@ -1,10 +1,11 @@
-import { Text, View, TextInput, TouchableWithoutFeedback, Keyboard, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { Text, View, TextInput, TouchableWithoutFeedback, Keyboard, StyleSheet, TouchableOpacity, Alert, ScrollView } from "react-native";
+import { useEffect, useState, useContext, useCallback } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDocs, query, where } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
-// import { useNavigation } from "@react-navigation/native";
-import { addService } from "../ORM";
+import { useNavigation } from "@react-navigation/native";
+import { addService, getUserByUsername, updateUser } from "../ORM";
+import UserContext from "../contexts/UserContext";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBjlA_pGLOeocLz0I9vSsX8vNdOqPFTyIM",
@@ -24,18 +25,58 @@ function AddService(props) {
     const [serviceHours, setServiceHours] = useState('');
     const [serviceDescription, setServiceDescription] = useState('');
 
+    const {usernameData, setUsernameData} = useContext(UserContext);
+
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const navigation = useNavigation();
 
-    function insertService(){
-        let service = {
-            description: serviceDescription,
-            location: serviceLocation,
-            points: serviceHours,
-            requester: "Bob", // placeholder for now
-            title: serviceName
+    const insertService = async () => {
+        try {
+            // Wait for the user data to be fetched
+            const data = await getUserByUsername(usernameData);
+    
+            // Check if the user has enough points
+            if (data.points < serviceHours) {
+                // Show alert if user doesn't have enough points
+                Alert.alert(
+                    "You do not have enough points to make this request",              // Title of the alert
+                    "Get more points by doing services and donating items!",  // Message
+                    [
+                        {
+                            text: "OK",   // Button text
+                        },
+                    ],
+                    { cancelable: true }  // This will prevent closing the alert by tapping outside
+                );
+                return;  // Stop further execution if user doesn't have enough points
+            } else {
+                // Proceed with service creation if user has enough points
+                let service = {
+                    description: serviceDescription,
+                    location: serviceLocation,
+                    points: serviceHours,
+                    requester: usernameData,
+                    title: serviceName,
+                    completed: false
+                };
+    
+                // Deduct points and update user data
+                data.points = data.points - serviceHours;
+                await updateUser(data.id, data);  // Make sure this is awaited if it's async
+    
+                // Add service to the database
+                await addService(service);
+    
+                // Reset the navigation to "Services" screen
+                navigation.reset({
+                    index: 0, // The first screen after reset
+                    routes: [{ name: 'Services' }], // Navigate to the "Services" screen
+                });
+            }
+        } catch (error) {
+            console.error("Error processing service request:", error);
         }
-        addService(service).then(console.log("service added"));
     }
 
     return (

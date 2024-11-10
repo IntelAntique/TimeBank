@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where, deleteField } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBjlA_pGLOeocLz0I9vSsX8vNdOqPFTyIM",
@@ -32,7 +32,14 @@ export async function readDonations() {
 export async function updateDonation(id, updatedDonation) {
     try {
         const donationRef = doc(db, "donations", id);
-        await updateDoc(donationRef, updatedDonation);
+
+        // If you want to delete `assignedTo` field, set it to FieldValue.delete()
+        const updatedData = {
+            ...updatedDonation,
+            ...(updatedDonation.assignedTo === undefined && { assignedTo: deleteField() })
+        };
+
+        await updateDoc(donationRef, updatedData);
         console.log("Document updated with ID: ", id);
     } catch (e) {
         console.error("Error updating document: ", e);
@@ -76,12 +83,20 @@ export async function readServices() {
 export async function updateService(id, updatedService) {
     try {
         const serviceRef = doc(db, "services", id);
-        await updateDoc(serviceRef, updatedService);
+
+        // If you want to delete `assignedTo` field, set it to FieldValue.delete()
+        const updatedData = {
+            ...updatedService,
+            ...(updatedService.assignedTo === undefined && { assignedTo: deleteField() })
+        };
+
+        await updateDoc(serviceRef, updatedData);
         console.log("Document updated with ID: ", id);
     } catch (e) {
         console.error("Error updating document: ", e);
     }
 }
+
 
 export async function removeService(id) {
     try {
@@ -100,6 +115,42 @@ export async function addUser(user) {
         console.log("Document written with ID: ", docRef.id);
     } catch (e) {
         console.error("Error adding document: ", e);
+    }
+}
+
+export async function updateUser(id, updatedUser) {
+    try {
+        const userRef = doc(db, "users", id);
+
+        await updateDoc(userRef, updatedUser);
+        console.log("Document updated with ID: ", id);
+    } catch (e) {
+        console.error("Error updating document: ", e);
+    }
+}
+
+export async function getUserByUsername(username) {
+    const usersCollection = collection(db, "users");
+    
+    // Create a query to find services where assignedTo equals the given username
+    const usersQuery = query(usersCollection, where("username", "==", username));
+    
+    try {
+        const querySnapshot = await getDocs(usersQuery);
+        
+        if (querySnapshot.empty) {
+            console.log("No one with this username.");
+            return [];
+        } else {
+            const users = [];
+            querySnapshot.forEach(doc => {
+                users.push({ id: doc.id, ...doc.data() });
+            });
+            return users[0];
+        }
+    } catch (error) {
+        console.error("Error getting user:", error);
+        return [];
     }
 }
 
@@ -132,5 +183,137 @@ export async function checkCredentials(username, password) {
     } catch (error) {
         console.log("Error authenticating user:", error);
         return false;
+    }
+}
+
+export async function assignServiceToUser(serviceId, assignedTo) {
+    try {
+        // Get a reference to the service document using its ID
+        const serviceRef = doc(db, "services", serviceId);  // Assuming your collection is named "services"
+
+        // Update the document to add the "assignedTo" field
+        await updateDoc(serviceRef, {
+            assignedTo: assignedTo, // Add the new field
+        });
+
+        console.log("Service assigned successfully!");
+    } catch (error) {
+        console.error("Error assigning service:", error);
+    }
+}
+
+export async function getServicesAssignedToUser(username) {
+    const servicesCollection = collection(db, "services");
+    
+    // Create a query to find services where assignedTo equals the given username
+    const servicesQuery = query(servicesCollection, where("assignedTo", "==", username));
+    
+    try {
+        const querySnapshot = await getDocs(servicesQuery);
+        
+        if (querySnapshot.empty) {
+            console.log("No services found assigned to this user.");
+            return [];
+        } else {
+            const services = [];
+            querySnapshot.forEach(doc => {
+                services.push({ id: doc.id, ...doc.data() });
+            });
+            return services;
+        }
+    } catch (error) {
+        console.error("Error getting services:", error);
+        return [];
+    }
+}
+
+export async function getServicesRequestedByUser(username) {
+    const servicesCollection = collection(db, "services");
+    
+    // Create a query to find services where assignedTo equals the given username
+    const servicesQuery = query(servicesCollection, where("requester", "==", username));
+    
+    try {
+        const querySnapshot = await getDocs(servicesQuery);
+        
+        if (querySnapshot.empty) {
+            console.log("No services found requested to this user.");
+            return [];
+        } else {
+            const services = [];
+            querySnapshot.forEach(doc => {
+                services.push({ id: doc.id, ...doc.data() });
+            });
+            return services;
+        }
+    } catch (error) {
+        console.error("Error getting services:", error);
+        return [];
+    }
+}
+
+export async function assignDonationToUser(donationId, assignedTo) {
+    try {
+        // Get a reference to the service document using its ID
+        const donationRef = doc(db, "donations", donationId);  // Assuming your collection is named "services"
+
+        // Update the document to add the "assignedTo" field
+        await updateDoc(donationRef, {
+            assignedTo: assignedTo, // Add the new field
+        });
+
+        console.log("Service assigned successfully!");
+    } catch (error) {
+        console.error("Error assigning service:", error);
+    }
+}
+
+export async function getDonationsAssignedToUser(username) {
+    const donationsCollection = collection(db, "donations");
+    
+    // Create a query to find services where assignedTo equals the given username
+    const donationsQuery = query(donationsCollection, where("assignedTo", "==", username));
+    
+    try {
+        const querySnapshot = await getDocs(donationsQuery);
+        
+        if (querySnapshot.empty) {
+            console.log("No donations found assigned to this user.");
+            return [];
+        } else {
+            const donations = [];
+            querySnapshot.forEach(doc => {
+                donations.push({ id: doc.id, ...doc.data() });
+            });
+            return donations;
+        }
+    } catch (error) {
+        console.error("Error getting donations:", error);
+        return [];
+    }
+}
+
+export async function getDonationsFromUser(username) {
+    const donationsCollection = collection(db, "donations");
+    
+    // Create a query to find services where assignedTo equals the given username
+    const donationsQuery = query(donationsCollection, where("donator", "==", username));
+    
+    try {
+        const querySnapshot = await getDocs(donationsQuery);
+        
+        if (querySnapshot.empty) {
+            console.log("No services found requested to this user.");
+            return [];
+        } else {
+            const donations = [];
+            querySnapshot.forEach(doc => {
+                donations.push({ id: doc.id, ...doc.data() });
+            });
+            return donations;
+        }
+    } catch (error) {
+        console.error("Error getting donations:", error);
+        return [];
     }
 }

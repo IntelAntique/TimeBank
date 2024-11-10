@@ -1,6 +1,11 @@
 import { Platform, Text, View, Pressable, Image, Dimensions, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
 import { useEffect, useState, useRef, useCallback } from "react";
+import { Text, View, Platform, Image, Alert, StyleSheet, TouchableOpacity, Linking, ScrollView, Dimensions } from "react-native";
+import { useContext, useState, useRef, useCallback, useEffect } from "react";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
+import { assignServiceToUser } from "../ORM";
+import UserContext from "../contexts/UserContext";
+import { useNavigation } from "@react-navigation/native";
 // import { useNavigation } from "@react-navigation/native";
 import MapView, { PROVIDER_GOOGLE, Marker, PROVIDER_DEFAULT } from 'react-native-maps';
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
@@ -9,6 +14,9 @@ function Service(props) {
     const [location, setLocation] = useState({ coords: { latitude: 0, longitude: 0 } });
     const [region, setRegion] = useState(null);
     const mapRef = useRef(null);
+
+    const {usernameData, setUsernameData} = useContext(UserContext);
+    const navigation = useNavigation();
 
     props = props.route.params;
     
@@ -50,6 +58,25 @@ function Service(props) {
         }
     }, [region]);
 
+    function signUp(){
+        assignServiceToUser(props.id, usernameData);
+        Alert.alert(
+            "Successfully signed up",              // Title of the alert
+            "View events you signed up for in the My Events tab",  // Message
+            [
+                {
+                    text: "OK",   // Button text
+                    onPress: () => console.log("OK pressed"),  // Action when button is pressed
+                },
+            ],
+            { cancelable: true }  // This will prevent closing the alert by tapping outside
+        );
+        navigation.reset({
+            index: 0, // The first screen after reset
+            routes: [{ name: 'Services' }], // Navigate to the "Services" screen
+        });
+    }
+
     return (<View style={styles.page}>
         <Card style={{backgroundColor: 'white', margin: 10, alignItems: 'center'}}>
             <Card.Content style={{alignItems: 'center'}}>
@@ -58,7 +85,7 @@ function Service(props) {
                 <Paragraph>{props.location}</Paragraph>
                 <Paragraph>Points: {props.points}</Paragraph>
                 <Paragraph>{props.description}</Paragraph>
-                <TouchableOpacity style={styles.button} onPress={() => console.log('Button pressed')}>
+                <TouchableOpacity style={styles.button} onPress={signUp}>
                     <Text style={styles.buttonText}>Sign up</Text>
                 </TouchableOpacity>
             </Card.Content>

@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Services from "./../screens/Services";
 import TimeStack from "./TimeStack";
 import DonateStack from "./DonateStack";
-
+import SignedUpStack from "./SignedUpStack";
 
 function Tabs(props) {
 
@@ -37,6 +37,20 @@ function Tabs(props) {
                 },
                 tabBarIcon: ({ color, size }) => (
                     <MaterialCommunityIcons name="gift" color={color} size={size} />)
+            }}/>
+
+        <Tabs.Screen name="SignedUpStack" component={SignedUpStack} options={{
+                headerShown: false,
+                tabBarLabel: () => null,
+                headerStyle: {
+                    backgroundColor: '#4361ee', // Green background color of the header
+                },
+                headerTintColor: 'white', // White color for the title and icons in the header
+                headerTitleStyle: {
+                fontWeight: 'bold', // Bold header title
+                },
+                tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons name="calendar" color={color} size={size} />)
             }}/>
 
         </Tabs.Navigator>

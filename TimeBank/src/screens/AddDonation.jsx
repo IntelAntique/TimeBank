@@ -1,10 +1,11 @@
 import { Text, View, TextInput, TouchableWithoutFeedback, Keyboard, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDocs, query, where } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
 // import { useNavigation } from "@react-navigation/native";
 import { addDonation } from "../ORM";
+import UserContext from "../contexts/UserContext";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBjlA_pGLOeocLz0I9vSsX8vNdOqPFTyIM",
@@ -25,15 +26,17 @@ function AddDonation(props) {
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const {usernameData, setUsernameData} = useContext(UserContext);
 
     function insertDonation(){
         let donation = {
             description: donationDescription,
             location: donationLocation,
             points: 1,
-            donator: "Bob", // placeholder for now
+            donator: usernameData,
             photo: "not yet implemented",
-            title: donationTitle
+            title: donationTitle,
+            completed: false
         }
         addDonation(donation).then(console.log("donation added"));
     }
