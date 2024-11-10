@@ -82,9 +82,8 @@ function AddService(props) {
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <View style={styles.page}>
-        <Card style={{backgroundColor: 'white', margin: 10, alignItems: 'center'}}>
-            <Card.Content style={{alignItems: 'center'}}>
-                <Text style={styles.label}>What service are you requesting?</Text>
+        <View style={{margin: 30, alignItems: 'center'}}>
+        <Text style={styles.label}>What service are you requesting?</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Ex: Mow the lawn"
@@ -121,9 +120,7 @@ function AddService(props) {
                 <TouchableOpacity style={styles.button} onPress={insertService}>
                     <Text style={styles.buttonText}>Add Service</Text>
                 </TouchableOpacity>
-            </Card.Content>
-        </Card>
-        
+        </View>
     </View>
     </TouchableWithoutFeedback>);
 }
@@ -132,7 +129,7 @@ const styles = StyleSheet.create({
     page: {
         backgroundColor: 'white',
         flex: 1,
-        // alignItems: 'center',  
+        alignItems: 'center', 
     },
     button: {
         backgroundColor: '#4361ee', // Set the button background color
@@ -154,7 +151,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        width: "100%",
+        width: 300,
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 5,
