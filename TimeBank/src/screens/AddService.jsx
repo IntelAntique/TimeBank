@@ -1,10 +1,11 @@
 import { Text, View, TextInput, TouchableWithoutFeedback, Keyboard, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDocs, query, where } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 import { addService } from "../ORM";
+import UserContext from "../contexts/UserContext";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBjlA_pGLOeocLz0I9vSsX8vNdOqPFTyIM",
@@ -24,6 +25,8 @@ function AddService(props) {
     const [serviceHours, setServiceHours] = useState('');
     const [serviceDescription, setServiceDescription] = useState('');
 
+    const {usernameData, setUsernameData} = useContext(UserContext);
+
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const navigation = useNavigation();
@@ -33,7 +36,7 @@ function AddService(props) {
             description: serviceDescription,
             location: serviceLocation,
             points: serviceHours,
-            requester: "Bob", // placeholder for now
+            requester: usernameData,
             title: serviceName
         }
         addService(service).then(navigation.reset({

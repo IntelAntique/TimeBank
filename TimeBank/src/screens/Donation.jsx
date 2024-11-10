@@ -1,14 +1,37 @@
-import { Text, View, Pressable, Image, Dimensions, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { Text, View, Pressable, Image, Alert, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
+import { useContext, useState, useRef, useCallback } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDocs, query, where } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
+import { useNavigation } from "@react-navigation/native";
+import { assignDonationToUser } from "../ORM";
+import UserContext from "../contexts/UserContext";
 
 function Donation(props) {
 
     props = props.route.params;
 
-    console.log("props", props);
+    const {usernameData, setUsernameData} = useContext(UserContext);
+    const navigation = useNavigation();
+
+    function signUp(){
+        assignDonationToUser(props.id, usernameData);
+        Alert.alert(
+            "Successfully signed up",              // Title of the alert
+            "View events you signed up for in the My Events tab",  // Message
+            [
+                {
+                    text: "OK",   // Button text
+                    onPress: () => console.log("OK pressed"),  // Action when button is pressed
+                },
+            ],
+            { cancelable: true }  // This will prevent closing the alert by tapping outside
+        );
+        navigation.reset({
+            index: 0, // The first screen after reset
+            routes: [{ name: 'Donations' }], // Navigate to the "Services" screen
+        });
+    }
 
     return (<View style={styles.page}>
         <Card style={{backgroundColor: 'white', margin: 10, alignItems: 'center'}}>
@@ -17,7 +40,7 @@ function Donation(props) {
                 <Paragraph>Donated by {props.donator}</Paragraph>
                 <Paragraph>{props.location}</Paragraph>
                 <Paragraph>{props.description}</Paragraph>
-                <TouchableOpacity style={styles.button} onPress={() => console.log('Button pressed')}>
+                <TouchableOpacity style={styles.button} onPress={signUp}>
                     <Text style={styles.buttonText}>Sign up</Text>
                 </TouchableOpacity>
             </Card.Content>
