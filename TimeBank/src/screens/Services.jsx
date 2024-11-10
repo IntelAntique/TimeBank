@@ -70,6 +70,7 @@ function Services(props) {
 
     useEffect(() => {
         fetchUserData();
+        fetchServices().then(data => setServices(data));
     }, [usernameData]);
 
     return (<View style={{flex: 1, width: '100%', backgroundColor: 'white'}}>
