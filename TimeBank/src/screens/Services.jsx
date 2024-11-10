@@ -1,4 +1,4 @@
-import { Text, View, Pressable, Image, Dimensions, StyleSheet, Animated, Linking, ScrollView } from "react-native";
+import { Text, View, Pressable, Image, RefreshControl, StyleSheet, Animated, Linking, ScrollView } from "react-native";
 import { useEffect, useState, useRef, useCallback, useContext } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
@@ -23,6 +23,7 @@ function Services(props) {
     const [services, setServices] = useState([]);
     const [userData, setUserData] = useState(null);
     const navigation = useNavigation();
+    const [loading, setLoading] = useState(false);
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
@@ -40,9 +41,24 @@ function Services(props) {
         }
     }
 
-    useFocusEffect(() => {
+    async function fetchUserData() {
+        try {
+            console.log(usernameData)
+            const data = await getUserByUsername(usernameData);
+            setUserData(data);
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    }
+
+    const onRefresh = () => {
         fetchServices().then(data => setServices(data));
-    });
+        fetchUserData();
+      };
+
+    // useFocusEffect(() => {
+    //     fetchServices().then(data => setServices(data));
+    // });
 
     function goToService(service){
         navigation.push("Service", {
@@ -53,21 +69,12 @@ function Services(props) {
     const { usernameData, setUsernameData } = useContext(UserContext);
 
     useEffect(() => {
-        async function fetchUserData() {
-            try {
-                console.log(usernameData)
-                const data = await getUserByUsername(usernameData);
-                setUserData(data);
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            }
-        }
         fetchUserData();
     }, [usernameData]);
 
     return (<View style={{flex: 1, width: '100%', backgroundColor: 'white'}}>
         <Text style={styles.pointsText} >{userData?.points}</Text>
-        <ScrollView style={{flex: 1}}>
+        <ScrollView style={{flex: 1}} refreshControl={ <RefreshControl refreshing={loading} onRefresh={onRefresh} /> }>
             {
                 services.filter((service) => service.assignedTo == undefined).filter((service) => service.completed == false).map((service) => {
                     return(<Pressable key={service.id} onPress={() => goToService(service)}>
