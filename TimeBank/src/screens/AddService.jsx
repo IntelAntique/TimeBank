@@ -3,7 +3,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDocs, query, where } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { addService } from "../ORM";
 
 const firebaseConfig = {
@@ -26,6 +26,7 @@ function AddService(props) {
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const navigation = useNavigation();
 
     function insertService(){
         let service = {
@@ -35,7 +36,10 @@ function AddService(props) {
             requester: "Bob", // placeholder for now
             title: serviceName
         }
-        addService(service).then(console.log("service added"));
+        addService(service).then(navigation.reset({
+            index: 0, // The first screen after reset
+            routes: [{ name: 'Services' }], // Navigate to the "Services" screen
+        }));
     }
 
     return (

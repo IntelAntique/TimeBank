@@ -3,7 +3,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBjlA_pGLOeocLz0I9vSsX8vNdOqPFTyIM",
@@ -37,9 +37,9 @@ function Services(props) {
         }
     }
 
-    useEffect(() => {
+    useFocusEffect(() => {
         fetchServices().then(data => setServices(data));
-    }, [])
+    });
 
     function goToService(service){
         navigation.push("Service", {
@@ -50,7 +50,7 @@ function Services(props) {
     return (<View style={{flex: 1, width: '100%', backgroundColor: 'white'}}>
         <ScrollView style={{flex: 1}}>
             {
-                services.map((service) => {
+                services.filter((service) => service.assignedTo == undefined).map((service) => {
                     return(<Pressable key={service.id} onPress={() => goToService(service)}>
                         <Card style={{backgroundColor: 'white', margin: 10}}>
                             <Card.Content>

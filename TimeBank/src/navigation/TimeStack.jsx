@@ -19,6 +19,7 @@ function TimeStack(props) {
             headerTitleStyle: {
               fontWeight: 'bold', // Bold header title
             },
+            headerLeft: () => null,
           }}/>
         <TimeBankStack.Screen name="Service" component={Service}
         options={{

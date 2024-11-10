@@ -134,3 +134,70 @@ export async function checkCredentials(username, password) {
         return false;
     }
 }
+
+export async function assignServiceToUser(serviceId, assignedTo) {
+    try {
+        // Get a reference to the service document using its ID
+        const serviceRef = doc(db, "services", serviceId);  // Assuming your collection is named "services"
+
+        // Update the document to add the "assignedTo" field
+        await updateDoc(serviceRef, {
+            assignedTo: assignedTo, // Add the new field
+        });
+
+        console.log("Service assigned successfully!");
+    } catch (error) {
+        console.error("Error assigning service:", error);
+    }
+}
+
+export async function getServicesAssignedToUser(username) {
+    const servicesCollection = collection(db, "services");
+    
+    // Create a query to find services where assignedTo equals the given username
+    const servicesQuery = query(servicesCollection, where("assignedTo", "==", username));
+    
+    try {
+        const querySnapshot = await getDocs(servicesQuery);
+        
+        if (querySnapshot.empty) {
+            console.log("No services found assigned to this user.");
+            return [];
+        } else {
+            const services = [];
+            querySnapshot.forEach(doc => {
+                services.push({ id: doc.id, ...doc.data() });
+            });
+            return services;
+        }
+    } catch (error) {
+        console.error("Error getting services:", error);
+        return [];
+    }
+}
+
+export async function getServicesRequestedByUser(username) {
+    const servicesCollection = collection(db, "services");
+    
+    // Create a query to find services where assignedTo equals the given username
+    const servicesQuery = query(servicesCollection, where("requester", "==", username));
+    
+    try {
+        const querySnapshot = await getDocs(servicesQuery);
+        
+        if (querySnapshot.empty) {
+            console.log("No services found requested to this user.");
+            return [];
+        } else {
+            const services = [];
+            querySnapshot.forEach(doc => {
+                services.push({ id: doc.id, ...doc.data() });
+            });
+            return services;
+        }
+    } catch (error) {
+        console.error("Error getting services:", error);
+        return [];
+    }
+}
+
