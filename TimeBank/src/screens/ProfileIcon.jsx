@@ -3,6 +3,7 @@ import { View, Text, Pressable } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from 'react-native-vector-icons'; // Import the icon library
+import Profile from "./Profile";
 
 function ProfileIcon(props) {
     const navigation = useNavigation();

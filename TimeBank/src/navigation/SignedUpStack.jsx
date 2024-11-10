@@ -5,6 +5,7 @@ import { StyleSheet } from "react-native";
 import SignedUp from "../screens/SignedUp";
 import Completed from "../screens/Completed";
 import { Ionicons } from 'react-native-vector-icons'; // Import the icon library
+import Profile from "../screens/Profile";
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,9 @@ function SignedUpStack(props) {
                 />
             <Stack.Screen name="Completed" component={Completed} options={
               {...styles.header, title: "Completed"}
+            }/>
+            <Stack.Screen name="Profile" component={Profile} options={
+              {...styles.header, title: "Profile"}
             }/>
         </Stack.Navigator>
     );

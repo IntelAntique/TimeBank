@@ -98,7 +98,7 @@ function AddService(props) {
 
       // Check if the user has enough points
       if (data.points < serviceHours) {
-        // Show alert if user doesn't have enough points
+        // Show alert if  user doesn't have enough points
         Alert.alert(
           "You do not have enough points to make this request", // Title of the alert
           "Get more points by doing services and donating items!", // Message
@@ -183,15 +183,14 @@ function AddService(props) {
             multiline={true}
             onChangeText={setServiceDescription}
           />
-
+{/* 
           <Text style={styles.text}>Pick an image</Text>
 
-          {/* If there is an image, show it */}
           {image && (
             <Image source={{ uri: image }} style={styles.image} />
           )}
 
-          <Button title="Choose Image" onPress={chooseImage} />
+          <Button title="Choose Image" onPress={chooseImage} /> */}
 
           {/* TODO: Once log in logic is implemented, check that the user has enough points  */}
           <TouchableOpacity style={styles.button} onPress={insertService}>
