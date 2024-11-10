@@ -14,7 +14,7 @@ function DonateStack(props) {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Donations" component={Donations} options={
-              {...styles.header, title: "Donations", headerLeft: () => null}
+              {...styles.header, title: "Donations", headerRight: ProfileIcon, headerLeft: () => null}
             }/>
             <Stack.Screen name="Donation" component={Donation} options={
               {...styles.header, title: "Donation"}

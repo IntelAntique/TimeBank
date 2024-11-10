@@ -1,5 +1,3 @@
-import { Platform, Text, View, Pressable, Image, Dimensions, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
-import { useEffect, useState, useRef, useCallback } from "react";
 import { Text, View, Platform, Image, Alert, StyleSheet, TouchableOpacity, Linking, ScrollView, Dimensions } from "react-native";
 import { useContext, useState, useRef, useCallback, useEffect } from "react";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';

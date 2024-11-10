@@ -27,12 +27,14 @@ function Profile(props) {
                 style={styles.picture} 
                 source={{ uri: "https://media.licdn.com/dms/image/v2/D5603AQHTiFSZIO3JbQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1724477985031?e=1736985600&v=beta&t=xFvROqYnJRlKL0jKYwDzX4B1tYq7kr1rq20BrlS6gKM" }} 
                 />
+                <View style={{margin: 10}}>
+                  <Text>Username</Text>
+                  <Text>@username</Text>
+                </View>
+                
                 <Pressable style={styles.editButton}>
                 <Text style={styles.editButtonText}>Edit Profile</Text>
                 </Pressable>
-
-                <Text>Username</Text>
-                <Text>@username</Text>
             </View>
 
             <View style={styles.menuSection}>

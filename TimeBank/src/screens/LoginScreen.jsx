@@ -63,11 +63,13 @@ function LoginScreen(props) {
                     <Text style={styles.buttonText}>Log In</Text>
         </TouchableOpacity>
 
-        <Text style={{marginTop: 10}}>Need an account?
+        <View style={{marginTop: 10, flexDirection: "row"}}>
+            <Text>Need an account? </Text>
             <Pressable onPress={register}>
                 <Text style={{color: 'blue', textDecorationLine: 'underline'}}> Register</Text>
             </Pressable>
-        </Text>
+        </View>
+        
     </View>
     </TouchableWithoutFeedback>);
 }
