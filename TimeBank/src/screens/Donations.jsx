@@ -15,8 +15,8 @@ function Donations(props) {
 
     const moreInfo = (donation) => {
         navigation.navigate("Donation", {
-            details: donation
-        })
+            ...donation
+        });
     }
 
     const LeftContent = props => <Avatar.Icon {...props} icon="gift" backgroundColor="#4361ee"/>
