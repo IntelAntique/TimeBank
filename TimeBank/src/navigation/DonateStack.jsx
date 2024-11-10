@@ -6,6 +6,7 @@ import AddDonation from "../screens/AddDonation";
 import ProfileIcon from "../screens/ProfileIcon";
 import Profile from "../screens/Profile";
 import { StyleSheet } from "react-native";
+import Donation from "../screens/Donation";
 
 const Stack = createStackNavigator();
 
@@ -13,9 +14,9 @@ function DonateStack(props) {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Donations" component={Donations} options={
-              {...styles.header, title: "Donations"}
+              {...styles.header, title: "Donations", headerLeft: () => null}
             }/>
-            <Stack.Screen name="Donation" component={Donate} options={
+            <Stack.Screen name="Donation" component={Donation} options={
               {...styles.header, title: "Donation"}
             }/>
           <Stack.Screen name="Add Donation" component={AddDonation} options={

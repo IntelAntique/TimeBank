@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBjlA_pGLOeocLz0I9vSsX8vNdOqPFTyIM",
@@ -92,4 +92,45 @@ export async function removeService(id) {
         console.error("Error deleting document: ", e);
     }
 
+}
+
+export async function addUser(user) {
+    try {
+        const docRef = await addDoc(collection(db, "users"), user);
+        console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+}
+
+export async function checkCredentials(username, password) {
+    const usersCollection = collection(db, "users");
+
+    // Query for the username first
+    const userQuery = query(usersCollection, where("username", "==", username));
+
+    try {
+        const querySnapshot = await getDocs(userQuery);
+
+        if (querySnapshot.empty) {
+            console.log("No user found with this username.");
+            return false;
+        } else {
+            // Use a for loop to break early when a match is found
+            for (const doc of querySnapshot.docs) {
+                const user = doc.data();
+                if (user.password === password) {
+                    console.log("User authenticated:", user);
+                    return true; // Return true as soon as we find the correct password
+                }
+            }
+
+            // If no matching password was found
+            console.log("Password does not match.");
+            return false;
+        }
+    } catch (error) {
+        console.log("Error authenticating user:", error);
+        return false;
+    }
 }

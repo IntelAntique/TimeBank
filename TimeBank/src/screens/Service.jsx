@@ -1,7 +1,6 @@
 import { Text, View, Pressable, Image, Dimensions, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
-// import { useNavigation } from "@react-navigation/native";
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 
@@ -36,36 +35,6 @@ function Service(props) {
             mapRef.current.animateToRegion(region, 1000);
         }
     }, [region]);
-
-    // console.log("requester", props.requester);
-
-    //     // Function to fetch user by username
-    //     async function getUserByUsername(username) {
-    //         try {
-    //             // Reference to the users collection
-    //             const usersCollection = collection(db, "users");
-                
-    //             // Create a query to find a user with the specific username
-    //             const userQuery = query(usersCollection, where("username", "==", username));
-                
-    //             // Fetch the matching documents
-    //             const querySnapshot = await getDocs(userQuery);
-                
-    //             if (querySnapshot.empty) {
-    //                 setError("User not found!");
-    //             } else {
-    //                 // If a matching user is found, set the user state
-    //                 const userDoc = querySnapshot.docs[0]; // Get the first matching document
-    //                 setRequester(userDoc.data());
-    //             }
-    //         } catch (err) {
-    //             console.log("Error fetching user data: ", err.message);
-    //         }
-    //     }
-
-    // useEffect(() => {
-    //     getUserByUsername(props.requester);
-    // }, []);
 
     return (<View style={styles.page}>
         <Card style={{backgroundColor: 'white', margin: 10, alignItems: 'center'}}>
