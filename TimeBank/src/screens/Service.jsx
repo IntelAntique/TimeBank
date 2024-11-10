@@ -1,4 +1,4 @@
-import { Platform, Text, View, Alert, Image, Dimensions, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
+import { Text, View, Platform, Image, Alert, StyleSheet, TouchableOpacity, Linking, ScrollView, Dimensions } from "react-native";
 import { useContext, useState, useRef, useCallback, useEffect } from "react";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
 import { assignServiceToUser } from "../ORM";

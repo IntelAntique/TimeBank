@@ -3,6 +3,7 @@ import Service from "../screens/Service";
 import Services from "../screens/Services";
 import AddService from "../screens/AddService";
 import { Ionicons } from 'react-native-vector-icons'; // Import the icon library
+import ProfileIcon from "../screens/ProfileIcon";
 
 const TimeBankStack = createNativeStackNavigator();
 
@@ -21,19 +22,8 @@ function TimeStack(props) {
               fontWeight: 'bold', // Bold header title
             },
             headerLeft: () => null,
-            headerRight: () => (
-              <Ionicons 
-                  name="person-circle-outline" // This is the profile icon
-                  size={30} // Set the size of the icon
-                  color="white" // Icon color
-                  marginRight={-5}
-                  onPress={() => {
-                      // Handle profile icon press (e.g., navigate to profile screen)
-                      console.log('Profile Icon Pressed');
-                  }}
+            headerRight: ProfileIcon }}
               />
-          )
-          }}/>
         <TimeBankStack.Screen name="Service" component={Service}
         options={{
             title: 'Service', // Title of the screen

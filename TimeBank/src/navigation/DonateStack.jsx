@@ -15,18 +15,7 @@ function DonateStack(props) {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Donations" component={Donations} options={
-              {...styles.header, title: "Donations", headerLeft: () => null,  headerRight: () => (
-                <Ionicons 
-                    name="person-circle-outline" // This is the profile icon
-                    size={30} // Set the size of the icon
-                    color="white" // Icon color
-                    style={{ marginRight: 15 }} // Add margin for spacing
-                    onPress={() => {
-                        // Handle profile icon press (e.g., navigate to profile screen)
-                        console.log('Profile Icon Pressed');
-                    }}
-                />
-            )}
+              {...styles.header, title: "Donations", headerRight: ProfileIcon, headerLeft: () => null}
             }/>
             <Stack.Screen name="Donation" component={Donation} options={
               {...styles.header, title: "Donation"}

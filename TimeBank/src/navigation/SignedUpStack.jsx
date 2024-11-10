@@ -12,19 +12,8 @@ function SignedUpStack(props) {
     return (
         <Stack.Navigator>
             <Stack.Screen name="SignedUp" component={SignedUp} options={
-              {...styles.header, title: "Signed Up", headerLeft: () => null,  headerRight: () => (
-                <Ionicons 
-                    name="person-circle-outline" // This is the profile icon
-                    size={30} // Set the size of the icon
-                    color="white" // Icon color
-                    style={{ marginRight: 15 }} // Add margin for spacing
-                    onPress={() => {
-                        // Handle profile icon press (e.g., navigate to profile screen)
-                        console.log('Profile Icon Pressed');
-                    }}
+              {...styles.header, title: "Signed Up", headerLeft: () => null, headerRight: ProfileIcon }}
                 />
-            )}
-            }/>
             <Stack.Screen name="Completed" component={Completed} options={
               {...styles.header, title: "Completed"}
             }/>
