@@ -96,28 +96,28 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flex: 1,
         // alignItems: 'center',  
-      },
-      button: {
+    },
+    button: {
         backgroundColor: '#4361ee', // Set the button background color
         paddingVertical: 15,
         paddingHorizontal: 20,
         width: 300,
         borderRadius: 30, // Rounded corners
         marginTop: 30
-      },
-      buttonText: {
+    },
+    buttonText: {
         color: 'white', // Text color
         fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
-      },
-      label: {
+    },
+    label: {
         fontSize: 16,
         marginBottom: 8,
     },
     input: {
         height: 40,
-        width: 200,
+        width: "100%",
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 5,

@@ -35,7 +35,7 @@ function SignedUp(props) {
             <Text style={styles.category}>Service requests {usernameData} made:</Text>
             { requests.length > 0 ?
                 requests.map((request) => {
-                    return(<Card style={{backgroundColor: 'white', margin: 10}}>
+                    return(<Card style={{backgroundColor: 'white', margin: 10}} key={request.id}>
                             <Card.Content>
                                 <Title>{request.title}</Title>
                                 <Paragraph>{request.location}</Paragraph>
@@ -47,7 +47,7 @@ function SignedUp(props) {
             <Text style={styles.category}>Services {usernameData} signed up for:</Text>
             {
                 signedUp.map((signed) => {
-                    return(<Card style={{backgroundColor: 'white', margin: 10}}>
+                    return(<Card style={{backgroundColor: 'white', margin: 10}} key={signed.id}>
                             <Card.Content>
                                 <Title>{signed.title}</Title>
                                 <Paragraph>{signed.location}</Paragraph>
@@ -58,7 +58,7 @@ function SignedUp(props) {
             <Text style={styles.category}>{usernameData}'s Donations:</Text>
             {
                 donations.map((donation) => {
-                    return(<Card style={{backgroundColor: 'white', margin: 10}}>
+                    return(<Card style={{backgroundColor: 'white', margin: 10}} key={donation.id}>
                             <Card.Content>
                                 <Title>{donation.title}</Title>
                                 <Paragraph>{donation.location}</Paragraph>
@@ -69,7 +69,7 @@ function SignedUp(props) {
             <Text style={styles.category}>Donations to be picked up:</Text>
             {
                 pickups.map((pickup) => {
-                    return(<Card style={{backgroundColor: 'white', margin: 10}}>
+                    return(<Card style={{backgroundColor: 'white', margin: 10}} key={pickup.id}>
                             <Card.Content>
                                 <Title>{pickup.title}</Title>
                                 <Paragraph>{pickup.location}</Paragraph>
