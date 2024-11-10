@@ -69,7 +69,7 @@ function Services(props) {
         <Text style={styles.pointsText} >{userData?.points}</Text>
         <ScrollView style={{flex: 1}}>
             {
-                services.filter((service) => service.assignedTo == undefined).map((service) => {
+                services.filter((service) => service.assignedTo == undefined).filter((service) => service.completed == false).map((service) => {
                     return(<Pressable key={service.id} onPress={() => goToService(service)}>
                         <Card style={{backgroundColor: 'white', margin: 10}}>
                             <Card.Content>

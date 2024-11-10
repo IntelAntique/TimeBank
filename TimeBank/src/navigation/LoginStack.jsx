@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         headerTintColor: 'white', // White color for the title and icons in the header
         headerTitleStyle: {
           fontWeight: 'bold', // Bold header title
-        }
+        }, 
     }
 })
 

@@ -7,6 +7,7 @@ import ProfileIcon from "../screens/ProfileIcon";
 import Profile from "../screens/Profile";
 import { StyleSheet } from "react-native";
 import Donation from "../screens/Donation";
+import { Ionicons } from 'react-native-vector-icons'; // Import the icon library
 
 const Stack = createStackNavigator();
 
