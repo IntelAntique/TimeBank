@@ -83,6 +83,12 @@ function SignedUp(props) {
     });
   }
 
+  function completedPickup(donation) {
+    navigation.push("Completed", {
+        ...donation
+    });
+  }
+
   return (
     <View style={{ flex: 1, width: "100%", backgroundColor: "white" }}>
       <ScrollView style={{ flex: 1 }} refreshControl={ <RefreshControl refreshing={loading} onRefresh={onRefresh} /> }>
