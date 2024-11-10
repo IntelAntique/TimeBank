@@ -79,7 +79,7 @@ function Service(props) {
         <Card style={{backgroundColor: 'white', margin: 10, alignItems: 'center'}}>
             <Card.Content>
                 <View style={{flexDirection: "row"}} >
-                    <View>
+                    <View style={{width : "70%"}}>
                         <Title>{props.title}</Title>
                         <Paragraph>description: {props.description}</Paragraph>
                         <Paragraph>{props.location}</Paragraph>
