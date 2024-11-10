@@ -47,7 +47,7 @@ function Donations(props) {
           small
           icon="plus"
           color="white"
-          onPress={() => console.log('Pressed')}
+          onPress={() => navigation.push('Add Donation')}
         />
     </View>);
 }

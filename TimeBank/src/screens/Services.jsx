@@ -68,7 +68,7 @@ function Services(props) {
           small
           icon="plus"
           color="white"
-          onPress={() => console.log('Pressed')}
+          onPress={() => navigation.push("AddService")}
         />
     </View>);
 }
