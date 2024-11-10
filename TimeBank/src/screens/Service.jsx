@@ -1,8 +1,8 @@
-import { Text, View, Pressable, Image, Dimensions, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
+import { Platform, Text, View, Pressable, Image, Dimensions, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { Card, Title, Paragraph, FAB } from 'react-native-paper';
 // import { useNavigation } from "@react-navigation/native";
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, PROVIDER_DEFAULT } from 'react-native-maps';
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 
 function Service(props) {
@@ -33,7 +33,20 @@ function Service(props) {
 
     useEffect(() => {
         if (mapRef.current && region) {
-            mapRef.current.animateToRegion(region, 1000);
+            if (Platform.OS === 'ios') {
+                mapRef.current.animateCamera({
+                    center: {
+                        latitude: region.latitude,
+                        longitude: region.longitude
+                    },
+                    zoom: 15, // Adjust this value as needed
+                    pitch: 0,
+                    heading: 0,
+                    altitude: 0
+                }, { duration: 500 });
+            } else {
+                mapRef.current.animateToRegion(region, 1000);
+            }
         }
     }, [region]);
 
@@ -53,7 +66,7 @@ function Service(props) {
         <View style={styles.container}>
             <MapView 
                 ref={mapRef}
-                provider={PROVIDER_GOOGLE} 
+                provider={Platform.OS === "android" ? PROVIDER_GOOGLE : PROVIDER_DEFAULT} 
                 showsUserLocation={true}
                 showsMyLocationButton={true}
                 style={{width: '100%', height: '100%'}}
